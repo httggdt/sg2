@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta http-equiv='X-UA-Compatible' content='IE=Edge' />
+    <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title><%- detailData.data.detail.title %></title>
+    <meta name="keywords" content="三国卡牌,少三,代号：sss,少三2"/>
+    <meta name="description" content="《代号：SSS》是一款顶级三国卡牌游戏。极致立绘，炫酷特效，还原恢弘战场！自由探索，化身名将，亲历传奇诞生！策略合击，随心搭配，突破武将阵容限制！全民策划，这个三国你说了算！"/>	
+    <!-- 页面制作：婷酱  创建：2019-04-01 -->
+    <link rel="canonical" href="//sg2.youzu.com/<%= tags %>/<%= id %>.html" />
+    <link rel="alternate" media="only screen and (max-width: 640px)" href="//sg2.youzu.com/m/<%= tags %>/<%= id %>.html" />
+    <%- include("head.html") %>
+    <script src="<%= path %>/pc/js/jquery-1.10.2.min.js?<%= VERSION %>"></script>
+    <link rel="stylesheet" href="<%= path %>/mob/css/main.css?<%= VERSION %>">
+</head>
+<body class="pstat">
+    <div class="container liebiao">
+        <!-- 横竖屏提示 -->
+        <div class="origin_tip"><span>请切换至竖屏观看</span></div>
+        <!-- 第一屏 -->
+        <div class="header">
+            <a href="/download.html" class="backhome">＜返回首页</a>
+        </div>
+
+        <!-- news 第二屏 -->
+        <div class="newslist_plate">
+            <!-- 列表 -->
+            <div class="newslist_frame">
+                <!-- 表头 -->
+                <ul class="biaoti clearflow">
+                    <li class="li_all"><a href="../allNews">全部</a></li>
+                    <% if(allNews.data.news.total) {%>
+                        <li class="li_news"><a href="../news">新闻</a></li>
+                    <% } %>
+                    <% if(allNews.data.notice.total) {%>
+                        <li class="li_notice"><a href="../notice">公告</a></li>
+                    <% } %>
+                    <% if(allNews.data.media.total) {%>
+                        <li class="li_media"><a href="../media">媒体</a></li>
+                    <% } %>
+                    <% if(allNews.data.active.total) {%>
+                        <li class="li_active"><a href="../active">活动</a></li>
+                    <% } %>
+                </ul>
+                <!-- 新闻内容 -->
+                <div class="news_content detail">
+                    <div class="art_head">
+                        <h1 class="art_tit"><%- detailData.data.detail.title %></h1>
+                        <p class="art_time"><span class="art_day"><%= detailData.data.detail.pub_time%></span></p>
+                    </div>
+                    <div class="content_article"><%- detailData.data.detail.content%></div>
+                </div>
+            </div>
+
+            <!-- 尾部 -->
+            <div class="foot">
+                <script charset="utf-8" id="_FOOTER_" backColor="#373737" linkColor="#a4a4a4" mainColor="#5c5c5c" csh="新广出审[2017]7537号" ybz="文网游备字【2017】M-RPG 0761" tagUrl="http://www.youzu.com" src="//pic.youzu.com/common/before_js/footer.yd750.js?v=20190107"></script>
+            </div>
+        </div>
+
+        
+        <div class="mask"></div>
+        
+    </div>
+</body>
+<script src="<%= path %>/mob/js/index.js?<%= VERSION %>"></script>
+<script>
+$(function(){
+    var tags = '<%= tags %>'
+    switch_li(tags);
+})
+</script>
+<!-- 尾部+打点 -->
+<%- include("../pc/pstat.html") %>
+<%- include("./wx.html") %>
+</html>

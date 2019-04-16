@@ -1,0 +1,19 @@
+<script src="//pic.youzu.com/common/auth/youzuWeixin.js"></script>
+<script>
+    $(function(){
+
+        // var vConsole = new VConsole();
+
+        var wxApp = new youzuWeixin({
+            act_url: "//sg2.youzu.com/m/download.html",
+            act_id: "", //活动id
+            shareTitle: '<%= allData.data.wx[0].title %>', // 分享标题
+            shareDesc: '<%= allData.data.wx[0].remark %>', // 分享描述
+            shareLink: "//sg2.youzu.com/m/download.html", // 分享链接
+            shareImgUrl: '<%= allData.data.wx[0].thumb[0]%>', // 分享图标
+            shareTimeTitle: '', // 时间标题
+            shareSuccessCallback: function () { }
+        });
+        wxApp.share();
+    })
+</script>

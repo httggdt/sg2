@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta http-equiv='X-UA-Compatible' content='IE=Edge' />
+    <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title><%= baseData.data.struct.news.seo_title %></title>
+    <meta name="keywords" content="<%= baseData.data.struct.news.seo_keywords %>"/>
+    <meta name="description" content="<%= baseData.data.struct.news.seo_description %>"/>	    
+    <!-- 页面制作：婷酱  创建：2019-04-01 -->
+    <link rel="canonical" href="//sg2.youzu.com/news.html" />
+    <link rel="alternate" media="only screen and (max-width: 640px)" href="//sg2.youzu.com/m/news.html" />
+
+    <link rel="stylesheet" href="<%= path %>/pc/css/pagination.css?<%= VERSION %>">
+    <link rel="stylesheet" href="<%= path %>/pc/css/base.css?<%= VERSION %>">
+    <link rel="stylesheet" href="<%= path %>/pc/css/newslist.css?<%= VERSION %>">
+    <%- include("head.html")%>
+</head>
+<body class="pstat">
+    <div class="container">
+        <!-- kv -->
+        <div class="header_news">
+            <div class="wraper-content">
+                <h1 class="logo"><a href="//sg2.youzu.com/" title="少年三国志" target="_blank"><img src="<%= path %>/pc/img/logo.png?<%= VERSION %>" alt=""/></a></h1>
+            </div>
+        </div>
+        <!-- news 第二屏 -->
+        <div class="newslist_plate">
+            <div class="wraper-content">
+                <div class="stone"></div>
+                <a href="/" target="_blank" class="backhome">＜返回首页</a>
+                <!-- 列表 -->
+                <div class="newslist_frame">
+                    <ul class="biaoti clearflow">
+                        <li><a href="allNews.html">全部</a></li>
+                        <% if(allNews.data.news.total) {%>
+                            <li class="on"><a href="news.html">新闻</a></li>
+                        <% } %>
+                        <% if(allNews.data.notice.total) {%>
+                            <li><a href="notice.html">公告</a></li>
+                        <% } %>
+                        <% if(allNews.data.media.total) {%>
+                            <li><a href="media.html">媒体</a></li>
+                        <% } %>
+                        <% if(allNews.data.active.total) {%>
+                            <li><a href="active.html">活动</a></li>
+                        <% } %>
+                    </ul>
+                    <div class="news_content">
+                        <ul class="news_ul">
+                            <% for(var i=0; i< allList.data.news.list.length; i++) {%>
+                                <li><a href="<%= allList.data.news.list[i].url %>" target="_blank">
+                                    <p class="p_tit"><%= allList.data.news.list[i].title %></p>
+                                    <% if(allList.data.news.list[i].summary) {%>
+                                        <p class="p_mess"><%= allList.data.news.list[i].summary %></p>
+                                    <% } %>
+                                    <span class="p_tag"><%= allList.data.news.list[i].tags %></span>
+                                    <p class="p_day"><%= allList.data.news.list[i].pub_time.substr(5,2) %>.<%= allList.data.news.list[i].pub_time.substr(8,2) %></p>
+                                    <p class="_time">/</p>
+                                    <p class="p_time"><%= allList.data.news.list[i].pub_time.substr(11,8) %></p>
+                                </a></li>
+                            <% } %>
+                        </ul>
+                    </div>
+
+                    <!-- 分页 -->
+                    <div class="zxf_pagediv"></div>
+                </div>
+            </div>
+            <!-- 尾部 -->
+            <div class="foot">
+                <script id="_FOOTER_" gid='94' mat='black' src="//pic.youzu.com/common/before_js/footer.pc.js?v=20181212"></script>
+            </div>
+        </div>
+
+    </div>
+<script src="<%= path %>/pc/js/pagination.build.js?<%= VERSION %>"></script>
+<script src="<%= path %>/pc/js/index.js?<%= VERSION %>"></script>
+<script>
+$(function(){
+    getNews(1)   //初始化
+    //翻页
+    $(".zxf_pagediv").createPage({
+        pageNum: parseInt('<%= totalList %>' / 8 + 1),
+        current: 1,
+        backfun: function(e) {
+            getNews(e.current)
+        }
+    });
+
+    // 获取新闻列表
+    function getNews(page) {
+        $.ajax({
+            url: "//uapi.youzu.com/api/164/data/article-list?cid=news&limit=8",
+            type: 'GET',
+            dataType: "jsonp",
+            data: {
+                offset: (page-1)*8
+            },
+            success: function (res) {
+                $(".news_content ul").html("");
+                $.each(res.data, function (index, info) {
+                    if( info != ""){
+                        for(var i=0 ;i<info.list.length; i++){
+                            Html = '<li><a href="' + info.list[i].url + '"><p class="p_tit">' + info.list[i].title + '</p><p class="p_mess">' + info.list[i].summary + '</p>';
+                            Html += '<span class="p_tag">'+ info.list[i].tags +'</span><p class="p_day">' + info.list[i].pub_time.substr(5,2) + '.' + info.list[i].pub_time.substr(8,2) +'</p><p class="_time">/</p>';
+                            Html += '<p class="p_time">'+ info.list[i].pub_time.substr(11,8) +'</p></a></li>';
+                            
+                            $(".news_content ul").append(Html);
+                        }
+                    }
+                })
+            }
+        })
+    }
+})
+</script>
+<!-- 尾部+打点 -->
+<%- include("pstat.html") %>
+</body>
+</html>

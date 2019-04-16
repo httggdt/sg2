@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta http-equiv='X-UA-Compatible' content='IE=Edge' />
+    <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>《代号：SSS》手游下载官网 – 化身名将 亲历传奇</title>
+    <meta name="keywords" content="三国卡牌,少三,代号：sss,少三2"/>
+    <meta name="description" content="《代号：SSS》是一款顶级三国卡牌游戏。极致立绘，炫酷特效，还原恢弘战场！自由探索，化身名将，亲历传奇诞生！策略合击，随心搭配，突破武将阵容限制！全民策划，这个三国你说了算！"/>	
+    <!-- 页面制作：婷酱  创建：2019-04-01 -->
+    <link rel="canonical" href="//sg2.youzu.com/news.html" />
+    <link rel="alternate" media="only screen and (max-width: 640px)" href="//sg2.youzu.com/m/news.html" />
+    <%- include("head.html") %>
+    <script src="<%= path %>/pc/js/jquery-1.10.2.min.js?<%= VERSION %>"></script>
+    <link rel="stylesheet" href="<%= path %>/mob/css/main.css?<%= VERSION %>">
+</head>
+<body class="pstat">
+    <div class="container liebiao">
+        <!-- 横竖屏提示 -->
+        <div class="origin_tip"><span>请切换至竖屏观看</span></div>
+        <!-- 第一屏 -->
+        <div class="header">
+            <a href="/download.html" class="backhome">＜返回首页</a>
+        </div>
+
+        <!-- news 第二屏 -->
+        <div class="newslist_plate">
+            <!-- 列表 -->
+            <div class="newslist_frame">
+                <!-- 表头 -->
+                <ul class="biaoti clearflow">
+                    <li><a href="allNews">全部</a></li>
+                    <% if(allNews.data.news.total) {%>
+                        <li class="on"><a href="news">新闻</a></li>
+                    <% } %>
+                    <% if(allNews.data.notice.total) {%>
+                        <li><a href="notice">公告</a></li>
+                    <% } %>
+                    <% if(allNews.data.media.total) {%>
+                        <li><a href="media">媒体</a></li>
+                    <% } %>
+                    <% if(allNews.data.active.total) {%>
+                        <li><a href="active">活动</a></li>
+                    <% } %>
+                </ul>
+                <!-- 新闻列 -->
+                <div class="news_content">
+                    <ul class="news_ul">
+                        <% for(var i=0; i< allList.data.news.list.length; i++) {%>
+                            <li><a href="<%= SITE_PATH %>/m/<%= allList.data.news.list[i].cid %>/<%= allList.data.news.list[i].id %>.html">
+                                <p class="p_tit"><%= allList.data.news.list[i].title %></p>
+                                <% if(allList.data.news.list[i].summary) {%>
+                                    <p class="p_mess"><%= allList.data.news.list[i].summary %></p>
+                                <% } %>
+                                <span class="p_tag"><%= allList.data.news.list[i].tags %></span>
+                                <p class="p_day"><%= allList.data.news.list[i].pub_time.substr(5,2) %>.<%= allList.data.news.list[i].pub_time.substr(8,2) %></p>
+                            </a></li>
+                        <% } %>
+                    </ul>
+                    <div class="more_box">
+                        <a href="javascript:;" class="get_more" data-page="1">查看更多→</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 尾部 -->
+            <div class="foot">
+                <script charset="utf-8" id="_FOOTER_" backColor="#373737" linkColor="#a4a4a4" mainColor="#5c5c5c" csh="新广出审[2017]7537号" ybz="文网游备字【2017】M-RPG 0761" tagUrl="http://www.youzu.com" src="//pic.youzu.com/common/before_js/footer.yd750.js?v=20190107"></script>
+            </div>
+        </div>
+
+        
+        <div class="mask"></div>
+        
+    </div>
+</body>
+<script src="<%= path %>/mob/js/index.js?<%= VERSION %>"></script>
+<script>
+$(function(){
+    var SITE_PATH = '<%= SITE_PATH %>'
+    getNews(1)   //初始化
+    var page;
+    $(".get_more").click(function(e) {
+        page = $(e.currentTarget).data("page") + 1
+        // console.log(page)
+        getNews(page)
+    })
+    let totalPage= parseInt('<%= totalList %>' /8 + 1);
+    // 获取新闻列表
+    function getNews(page) {
+        $.ajax({
+            url: "//uapi.youzu.com/api/164/data/article-list?cid=news&limit=8",
+            type: 'GET',
+            dataType: "jsonp",
+            data: {
+                offset: (page-1)*8
+            },
+            success: function (res) {
+                if(page < totalPage){
+                    $.each(res.data, function (index, info) {
+                        if( info != ""){
+                            for(var i=0 ;i<info.list.length; i++){
+                                Html = '<li><a href="' + SITE_PATH + '/m/' + info.list[i].cid + '/'+ info.list[i].id + '.html"><p class="p_tit">' + info.list[i].title + '</p><p class="p_mess">' + info.list[i].summary + '</p>';
+                                Html += '<span class="p_tag">'+ info.list[i].tags +'</span><p class="p_day">' + info.list[i].pub_time.substr(5,2) + '/' + info.list[i].pub_time.substr(8,2) +'</p>';
+                                $(".news_content ul").append(Html);
+                            }
+                        } 
+                    })
+                    $(".get_more")[0].setAttribute("data-page", page+1);
+                }else if(page === 1){} 
+                else{
+                    alert("没有更多了呢~")
+                }
+            }
+        })
+    }
+})
+</script>
+<!-- 尾部+打点 -->
+<%- include("../pc/pstat.html") %>
+<%- include("./wx.html") %>
+</html>

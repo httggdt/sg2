@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta http-equiv='X-UA-Compatible' content='IE=Edge' />
+    <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>《代号：SSS》手游下载官网 – 化身名将 亲历传奇</title>
+    <meta name="keywords" content="三国卡牌,少三,代号：sss,少三2"/>
+    <meta name="description" content="《代号：SSS》是一款顶级三国卡牌游戏。极致立绘，炫酷特效，还原恢弘战场！自由探索，化身名将，亲历传奇诞生！策略合击，随心搭配，突破武将阵容限制！全民策划，这个三国你说了算！"/>	
+    <!-- 页面制作：婷酱  创建：2019-04-01 -->
+    <link rel="canonical" href="//sg2.youzu.com/download.html" />
+    <link rel="alternate" media="only screen and (max-width: 640px)" href="//sg2.youzu.com/m/download.html" />
+
+    <%- include("head.html") %>
+    <link rel="stylesheet" href="<%= path %>/mob/css/swiper-3.4.2.css?<%= VERSION %>">
+    <link rel="stylesheet" href="<%= path %>/mob/css/main.css?<%= VERSION %>">
+</head>
+<body class="pstat">
+    <div class="container home">
+        <!-- 横竖屏提示 -->
+        <div class="origin_tip"><span>请切换至竖屏观看</span></div>
+        <!-- kv 第一屏 -->
+        <div class="header">
+            <h1 class="logo"><a href="//sg2.youzu.com/m/download.html" title="三国卡牌" target="_blank"><img src="<%= path %>/mob/img/logo.png?<%= VERSION %>" alt=""/></a></h1>
+            <% if(allData.data.slogan[1]) { %>
+            <div class="slogan"><img src="<%= allData.data.slogan[1].thumb[0] %>" alt=""></div>
+            <% } %>
+
+            <!-- 提示语 -->
+            <% if(allData.data.slogan[0]) { %>
+            <div class="head_tit"><img src="<%= allData.data.slogan[0].thumb[0]%>" alt=""></div>
+            <% } %>
+
+            <!-- 下载组 -->
+            <div class="down_group">
+                <% if(allData.data.qq[0]) { %>
+                    <a href="<%= allData.data.qq[0].url %>" class="qq_down" rel="nofollow"></a>
+                <% } else { %>
+                    <a href="javascript:;" class="qq_down wait" onclick="Wait()" rel="nofollow"></a>
+                <% } %>
+            </div>
+        </div>
+
+        <!-- news 第二屏 -->
+        <div class="news_plate">
+            <div class="news_bg"></div>
+            <div class="news_tit"><img src="<%= path %>/mob/img/news_tit.png?<%= VERSION %>" alt=""></div>
+            <!-- 轮播 -->
+            <div class="swiper-container news-container">
+                <% if(allData.data.yd_swiper.length) { %>
+                <div class="swiper-wrapper">
+                    <% for(var i=0; i< allData.data.yd_swiper.length; i++) {%>
+                        <div class="swiper-slide"><a href="http:<%= allData.data.yd_swiper[i].url%>" onclick="pushState('sg2', 104980081032, 'swiper_yd')"><img src="<%= allData.data.yd_swiper[i].thumb[0]%>" alt=""></a></div>
+                    <% } %>
+                </div>
+                <% } %>
+
+                <div class="swiper-pagination"></div>
+            </div>
+            <!-- 新闻 -->
+            <% if(hotNews.data.hot.list[0]) {%>
+            <div class="news_section">
+                <div class="show_news">
+                    <a href="<%= SITE_PATH %>/m/<%= hotNews.data.hot.list[0].cid %>/<%= hotNews.data.hot.list[0].id %>.html">
+                        <div class="show_tit"><%= hotNews.data.hot.list[0].title %></div>
+                        <div class="show_cont">
+                            <p><%- hotNews.data.hot.list[0].summary %></p>
+                        </div>
+                    </a>
+                </div>
+                <ul class="news_list">
+                    <% for(var i=1; i< hotNews.data.hot.list.length; i++ ) {%>
+                    <li><a href="<%= SITE_PATH %>/m/<%= hotNews.data.hot.list[i].cid %>/<%= hotNews.data.hot.list[i].id %>.html">【公告】</a><a href="<%= SITE_PATH %>/m/<%= hotNews.data.hot.list[i].cid %>/<%= hotNews.data.hot.list[i].id %>.html" class="news-name"><%= hotNews.data.hot.list[i].title %></a>
+                        <a href="<%= SITE_PATH %>/m/<%= hotNews.data.hot.list[i].cid %>/<%= hotNews.data.hot.list[i].id %>.html" class="news-time">
+                            <%= hotNews.data.hot.list[i].pub_time.substr(5,2) %>/<%= hotNews.data.hot.list[i].pub_time.substr(8,2) %>&nbsp;<%= hotNews.data.hot.list[i].pub_time.substr(0,4) %>
+                        </a></li>
+                    <% } %>     
+               </ul>
+            <a href="allnews" class="read_more">查看更多→</a>
+            </div>
+            <% } %>
+
+            <div class="foot">
+                <script charset="utf-8" id="_FOOTER_" backColor="#373737" linkColor="#a4a4a4" mainColor="#5c5c5c" csh="新广出审[2017]7537号" ybz="文网游备字【2017】M-RPG 0761" tagUrl="http://www.youzu.com" src="//pic.youzu.com/common/before_js/footer.yd750.js?v=20190107"></script>
+            </div>
+        </div>
+
+        <div class="mask"></div>
+        <!-- 弹窗 -->
+        <!-- 敬请期待 -->
+        <% if(waitTips.data.wait_tips) { %>
+        <div class="pop_wait">
+            <a href="javascript:void(0);" class="g_close js_pop_close"></a>
+            <p class="wait_mas"><%- waitTips.data.wait_tips[0].ad_addition[0].content %></p>
+            <div class="btn_wait"><%= waitTips.data.wait_tips[0].title%></div>
+        </div>
+        <% } %>
+        <!-- 微信提示去浏览器打开 -->
+        <div class="pop_wx">
+            <a href="javascript:void(0);" class="g_close js_pop_close"></a>
+            <p class="wx_mess">还差一步啦！请少年点击右上角“<i style="color:#b12740;font-weight:700;">...</i>”，选择“<i style="color:#b12740;font-weight:700;">在浏览器打开</i>”进行下载哦~</p>
+        </div>
+        <!-- IOS教程 -->
+        <% if(IosTips.data.detail) { %>
+        <div class="pop_IOS">
+            <a href="javascript:void(0);" class="g_close js_pop_close"></a>
+            <div class="ios_tit"><%= IosTips.data.detail.page_title %></div>
+            <div class="ios_cont"><%- IosTips.data.detail.content %></div>
+            <div class="bot_mask"></div>
+            <% if(allData.data.downloadIos[0]) {%>
+            <a href="<%= allData.data.downloadIos[0].url %>" target="_blank" class="btn_ios_down">立即下载</a>
+            <% } %>
+        </div>
+        <% } %>
+    </div>
+</body>
+
+<!-- 尾部 -->
+<script src="<%= path %>/mob/js/swiper.min.js?<%= VERSION %>"></script>
+<script src="<%= path %>/mob/js/index.js?<%= VERSION %>"></script>
+<script>
+$(function(){
+    home();
+})
+</script>
+<!-- 打点 -->
+<%- include("../pc/pstat.html") %>
+<!-- 微信 -->
+<%- include("./wx.html") %>
+</html>

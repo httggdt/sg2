@@ -1,0 +1,42 @@
+<script src="//pstat.youzu.com/dp/script?v=20180429200" type="text/javascript"></script>
+<script>
+$(function(){
+    //页面加载完成执行打点属性写入
+    var data_loc_id_prex = '1049'; //got.youzu.com
+    var data_loc_set = [
+        //打点编号
+        ['10498008'],
+        //绑定dom
+        ['.video_box','.btn_ios_down']
+    ];
+    /*打点代码*/
+    function updateClickData() {
+        $(".pstat").each(function (index) {
+            var data_loc_id_middle = data_loc_set[0][0];
+            var data_loc_id = data_loc_id_prex + data_loc_id_middle + (index + 1);
+            $.each(data_loc_set[1], function (dindex, dlist) {
+                $.each($(".pstat").eq(index).find(data_loc_set[1][dindex]), function (cindex, clist) {
+                    $(clist).attr('data_loc_id', data_loc_id);
+                    $(clist).attr('data_id', cindex + 1);
+                    $(clist).attr('event_type', 'click');
+                    if ($(clist).attr("custom") != "") {
+                        $(clist).attr('custom', 'nav:' + (cindex + 1));
+                    }
+                })
+            })
+
+        })
+    }
+    updateClickData();
+})
+var _hmt = _hmt || [];
+// gamePrefix 游戏的前缀，locId 对应平台文档中数据打点官网编号，hd下的活动注意后缀，posId 打点标记
+function pushState(gamePrefix, locId, posId) {
+    var custom = arguments[3] ? arguments[3] : "";
+    var eventType = arguments[4] ? arguments[4] : "click";
+    // 百度推送
+    _hmt.push(['_trackEvent', 'game', posId, gamePrefix + '_' + posId]);
+    // 平台推送
+    dp_data_push(locId, gamePrefix + '_' + posId, custom, eventType);
+}
+</script>

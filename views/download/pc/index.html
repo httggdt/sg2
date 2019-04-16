@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta http-equiv='X-UA-Compatible' content='IE=Edge' />
+    <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>《代号：SSS》手游下载官网 – 化身名将 亲历传奇</title>
+    <meta name="keywords" content="三国卡牌,少三,代号：sss,少三2"/>
+    <meta name="description" content="《代号：SSS》是一款顶级三国卡牌游戏。极致立绘，炫酷特效，还原恢弘战场！自由探索，化身名将，亲历传奇诞生！策略合击，随心搭配，突破武将阵容限制！全民策划，这个三国你说了算！"/>	
+    <!-- 页面制作：婷酱  创建：2019-04-01 -->
+    <link rel="canonical" href="//sg2.youzu.com/download.html" />
+    <link rel="alternate" media="only screen and (max-width: 640px)" href="//sg2.youzu.com/m/download.html" />
+
+    <link rel="stylesheet" href="<%= path %>/pc/css/swiper-3.4.2.css?<%= VERSION %>">
+    <link rel="stylesheet" href="<%= path %>/pc/css/main.css?<%= VERSION %>">
+<%- include("head.html")%>
+</head>
+<body class="pstat">
+    <div class="container">
+        <!-- kv -->
+        <div class="header">
+            <div class="wraper-content">
+                <h1 class="logo"><a href="//sg2.youzu.com/" title="三国卡牌" target="_blank"><img src="<%= path %>/pc/img/logo.png?<%= VERSION %>" alt=""/></a></h1>
+                <% if(allData.data.slogan[1]) { %>
+                <div class="slogan"><img src="<%= allData.data.slogan[1].thumb[0] %>" alt=""></div>
+                <% } %>
+                <!-- 提示语 -->
+                <% if(allData.data.slogan[0]) { %>
+                <div class="head_tit"><img src="<%= allData.data.slogan[0].thumb[0]%>" alt=""></div>
+                <% } %>
+                <!-- 下载组 -->
+                <div class="down_group">
+                    <% if(allData.data.ewm[0].thumb[0]) { %>
+                    <div class="ewm_frame"><img class="ewm" src="<%= allData.data.ewm[0].thumb[0] %>" alt=""></div>
+                    <% } %>
+                    <div class="download">
+                        
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- news 第二屏 -->
+        <div class="news_plate">
+            <div class="wraper-content">
+                <div class="stone"></div>
+                <div class="news_bg"></div>
+                <!-- 轮播-左 -->
+                <div class="swiper-container news-container">
+                    <div class="swiper-wrapper">
+                        <% if( allData.data.swipe.length) {%>
+                        <% for(var i=0; i< allData.data.swipe.length; i++) {%>
+                        <div class="swiper-slide"><a href="http:<%= allData.data.swipe[i].url%>" target="_blank" onclick="pushState('sg2', 104980081030, 'swiper_pc')"><img src="<%= allData.data.swipe[i].thumb[0]%>" alt=""></a></div>
+                        <% } %>
+                        <% } %>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+                <!-- 新闻-右 -->
+                <div class="news_section">
+                    <div class="news_tit"><img src="<%= path %>/pc/img/news_tit.png?<%= VERSION %>" alt=""></div>
+                    <a href="allNews.html" target="_blank" class="read_more">查看更多→</a>
+                    <div class="new_content">
+                        <% if(hotNews.data.hot.list) { %>
+                        <div class="show_news">
+                            <div class="show_tit"><a href="<%= hotNews.data.hot.list[0].url%>" target="_blank"><%= hotNews.data.hot.list[0].title %></a></div>
+                            <div class="show_cont">
+                                <p><%- hotNews.data.hot.list[0].summary %></p>
+                            </div>
+                        </div>
+                        <ul class="news_list">
+                            <% for(var i=1; i< hotNews.data.hot.list.length; i++ ) {%>
+                            <li><a href="<%= hotNews.data.hot.list[i].url%>" target="_blank">【公告】</a><a href="<%= hotNews.data.hot.list[i].url%>" target="_blank" class="news-name"><%= hotNews.data.hot.list[i].title %></a>
+                                <a href="<%= hotNews.data.hot.list[i].url%>" target="_blank" class="news-time">
+                                    <%= hotNews.data.hot.list[i].pub_time.substr(5,2) %>/<%= hotNews.data.hot.list[i].pub_time.substr(8,2) %>&nbsp;<%= hotNews.data.hot.list[i].pub_time.substr(0,4) %>                                  
+                                </a></li>
+                            <% } %>
+                        </ul>
+                        <% } %>
+                    </div>
+                </div>
+
+
+                <!-- 尾部 -->
+                <div class="foot">
+                    <script id="_FOOTER_" gid='94' mat='black' src="//pic.youzu.com/common/before_js/footer.pc.js?v=20181212"></script>
+                </div>
+            </div>
+        </div>
+
+        <div class="mask"></div>
+        <!-- 弹窗 -->
+        <!-- 敬请期待 -->
+        <% if(waitTips.data.wait_tips[0]) { %>
+        <div class="pop_wait">
+            <a href="javascript:void(0);" class="g_close js_pop_close"></a>
+            <p><%- waitTips.data.wait_tips[0].ad_addition[0].content %></p>
+            <a href="javascript:void(0);" class="btn_wait"><%= waitTips.data.wait_tips[0].title%></a>
+        </div>
+        <% } %>
+
+        <!-- IOS教程 -->
+        <% if(allData.data.iosDown_pc[0]) { %>
+        <div class="pop_IOS">
+            <a href="javascript:void(0);" class="g_close js_pop_close"></a>
+            <div class="ios_tit"><%= IosTips.data.detail.title %></div>
+            <div class="ios_cont"><%- IosTips.data.detail.content %></div>
+            <div class="bot_mask"></div>
+            <a href="<%= allData.data.iosDown_pc[0].url %>" target="_blank" class="btn_ios_down">立即下载</a>
+        </div>
+        <% } %>
+    </div>
+
+<script src="<%= path %>/pc/js/swiper-3.4.2.js?<%= VERSION %>"></script>
+<script src="<%= path %>/pc/js/index.js?<%= VERSION %>"></script>
+<script>
+$(function(){
+    home();
+})
+</script>
+<!-- 尾部+打点 -->
+<%- include("pstat.html") %>
+</body>
+</html>
